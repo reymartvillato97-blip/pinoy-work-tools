@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinoy Work Tools</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f5f9;color:#202b3c}
+header{background:#075e54;color:white;padding:28px 16px;text-align:center}
+header h1{margin:0 0 8px}
+main{max-width:700px;margin:20px auto;padding:0 14px}
+.card{background:white;padding:20px;margin-bottom:16px;border-radius:14px;box-shadow:0 3px 12px #0000000c}
+h2{margin-top:0;color:#075e54;font-size:21px}
+label{display:block;margin:12px 0 5px}
+input{width:100%;padding:12px;border:1px solid #ccd3dd;border-radius:8px;font-size:16px}
+button{margin-top:14px;background:#075e54;color:white;border:0;border-radius:8px;padding:12px 16px;font-size:16px;width:100%;cursor:pointer}
+.result{margin-top:14px;padding:12px;background:#e6f4ef;border-radius:8px;font-weight:bold;overflow-wrap:anywhere}
+footer{text-align:center;padding:22px;color:#596579;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>Pinoy Work Tools 🇵🇭</h1>
+<p>Simple calculators for Filipino workers</p>
+</header>
+<main>
+<section class="card">
+<h2>💰 Salary Calculator</h2>
+<label>Daily rate (₱)</label>
+<input id="daily" type="number" min="0" placeholder="Example: 540">
+<label>Days worked</label>
+<input id="days" type="number" min="0" placeholder="Example: 13">
+<label>Overtime hours</label>
+<input id="ot" type="number" min="0" value="0">
+<label>Overtime rate per hour (₱)</label>
+<input id="otr" type="number" min="0" placeholder="Example: 84">
+<button onclick="salary()">Calculate Salary</button>
+<div class="result" id="salaryResult">Your estimate will appear here.</div>
+</section>
+<section class="card">
+<h2>📅 13th-Month Pay Estimator</h2>
+<label>Total basic salary earned this year (₱)</label>
+<input id="basic" type="number" min="0" placeholder="Example: 65000">
+<button onclick="thirteen()">Estimate 13th-Month Pay</button>
+<div class="result" id="thirteenResult">Your estimate will appear here.</div>
+</section>
+<section class="card">
+<h2>🎯 Savings Goal Calculator</h2>
+<label>Savings goal (₱)</label>
+<input id="goal" type="number" min="0" placeholder="Example: 100000">
+<label>Amount saved already (₱)</label>
+<input id="saved" type="number" min="0" value="0">
+<label>Amount to save every payday (₱)</label>
+<input id="perpay" type="number" min="1" placeholder="Example: 5000">
+<button onclick="savings()">Calculate Savings Plan</button>
+<div class="result" id="savingsResult">Your plan will appear here.</div>
+</section>
+<section class="card">
+<h2>⏱️ Work Hours Calculator</h2>
+<label>Clock-in time</label>
+<input id="start" type="time">
+<label>Clock-out time</label>
+<input id="end" type="time">
+<label>Total break time in minutes</label>
+<input id="breaks" type="number" min="0" value="60">
+<button onclick="hours()">Calculate Work Hours</button>
+<div class="result" id="hoursResult">Your work hours will appear here.</div>
+</section>
+</main>
+<footer>
+<p>Pinoy Work Tools · Made for Filipino workers</p>
+<p>Estimates only. Actual pay depends on your employer's payroll rules and applicable labor laws.</p>
+</footer>
+<script>
+const peso=n=>"₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+function val(id){return Math.max(0,Number(document.getElementById(id).value)||0)}
+function salary(){
+const total=val("daily")*val("days")+val("ot")*val("otr");
+document.getElementById("salaryResult").textContent="Estimated gross pay: "+peso(total)+" (before deductions).";
+}
+function thirteen(){
+document.getElementById("thirteenResult").textContent="Estimated 13th-month pay: "+peso(val("basic")/12)+". Eligibility and computation may vary.";
+}
+function savings(){
+const goal=val("goal"),saved=val("saved"),pay=val("perpay");
+if(!pay){document.getElementById("savingsResult").textContent="Enter an amount to save per payday.";return}
+const remaining=Math.max(0,goal-saved);
+document.getElementById("savingsResult").textContent=remaining===0?"Congratulations! You reached your goal!":"Remaining: "+peso(remaining)+". About "+Math.ceil(remaining/pay)+" paydays to reach your goal.";
+}
+function hours(){
+const s=document.getElementById("start").value,e=document.getElementById("end").value;
+if(!s||!e){document.getElementById("hoursResult").textContent="Enter both times first.";return}
+const [sh,sm]=s.split(":").map(Number),[eh,em]=e.split(":").map(Number);
+let mins=eh*60+em-(sh*60+sm);if(mins<0)mins+=1440;
+mins=Math.max(0,mins-val("breaks"));
+document.getElementById("hoursResult").textContent="Estimated paid work time: "+Math.floor(mins/60)+" hours and "+(mins%60)+" minutes.";
+}
+</script>
+</body>
+</html>
