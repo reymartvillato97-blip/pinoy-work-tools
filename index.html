@@ -3,323 +3,162 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#17102f">
-<title>Pinoy Arcade - Brick Breaker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINoy MART ARCADE</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#17102f;color:#fff8ff;font-family:Arial,sans-serif}
-header{text-align:center;padding:24px 10px 16px}
-.logo{font-size:clamp(27px,7vw,42px);font-weight:1000;color:#ffe45e;text-shadow:3px 3px #ff4fa3}
-.subtitle{font-size:11px;letter-spacing:3px;color:#d8c9ff;margin-top:8px}
-main{width:min(100% - 20px,540px);margin:auto}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.stat{background:#291a48;border:1px solid #65478c;border-radius:12px;text-align:center;padding:10px 3px}
-.stat small{display:block;font-size:10px;color:#d8c9ff}
-.stat strong{display:block;color:#ffe45e;font-size:20px;margin-top:5px}
-.shell{position:relative;border:2px solid #a35cff;border-radius:15px;overflow:hidden;box-shadow:0 0 22px #a35cff44;background:#100c27}
-canvas{display:block;width:100%;height:auto;touch-action:none}
-.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;background:#130c29e8}
-.overlay.hidden{display:none}
-.overlay h2{font-size:30px;color:#ffe45e;text-shadow:2px 2px #ff4fa3;margin:0 0 10px}
-.overlay p{line-height:1.6;font-size:14px;color:#eee4ff}
-button{border:0;border-radius:12px;padding:13px 16px;font-size:14px;font-weight:bold;cursor:pointer;touch-action:manipulation}
-.primary{background:linear-gradient(135deg,#ffe45e,#ff9852);color:#211138;box-shadow:0 4px #a85a41}
-.controls{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:9px;margin-top:12px}
-.controls button{min-height:54px;background:linear-gradient(135deg,#814bff,#ec4fa9);color:white;font-size:21px;box-shadow:0 4px #51267d}
-.controls .pause{font-size:12px;background:linear-gradient(135deg,#55f6ff,#8affc1);color:#211138;box-shadow:0 4px #238b9d}
-.help{margin-top:15px;padding:14px;border:1px solid #4b3670;border-radius:12px;background:#241745;color:#e4d9ff;font-size:13px;line-height:1.8}
-.help b{color:#55f6ff}
-footer{text-align:center;color:#a99acb;font-size:11px;padding:22px 8px}
+body{margin:0;font-family:Arial,sans-serif;background:#101329;color:white}
+header{padding:22px 16px;text-align:center;background:linear-gradient(120deg,#ff3155,#713cff,#147dff)}
+.logo{font-size:30px;font-weight:900;letter-spacing:1px}
+header p{margin:8px 0 0}
+main{max-width:900px;margin:auto;padding:18px}
+.welcome{text-align:center;padding:18px 0}
+h1{font-size:27px;margin-bottom:8px}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+.game{background:#202542;border:1px solid #373d65;border-radius:18px;padding:18px 12px;text-align:center}
+.emoji{font-size:48px}
+.game h2{font-size:18px}
+button{border:0;border-radius:12px;padding:12px 16px;background:#ffcf40;color:#17172a;font-weight:bold;cursor:pointer}
+.game button{width:100%}
+.soon{color:#b9bfdc;font-size:12px}
+#play{display:none;text-align:center;background:#202542;border-radius:18px;padding:15px;margin-top:20px}
+#board{display:block;width:100%;max-width:500px;margin:12px auto;background:#090d20;border-radius:12px;touch-action:none}
+.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+footer{text-align:center;padding:25px;color:#aeb4d6;font-size:13px}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">🎮 PINOY ARCADE</div>
-  <div class="subtitle">BRICK BREAKER • ARCADE CHALLENGE</div>
+  <div class="logo">🇵🇭 PINOY MART</div>
+  <p>ARCADE • PLAY • HAVE FUN!</p>
 </header>
 
 <main>
-  <div class="stats">
-    <div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
-    <div class="stat"><small>LIVES</small><strong id="lives">❤️❤️❤️</strong></div>
-    <div class="stat"><small>BEST</small><strong id="best">0</strong></div>
-  </div>
+  <section class="welcome">
+    <h1>🎮 Welcome to Pinoy Mart Arcade!</h1>
+    <p>Choose your game and have fun. Libre ra ang pagduwa!</p>
+  </section>
 
-  <div class="shell">
-    <canvas id="game" width="360" height="540"></canvas>
-    <div class="overlay" id="overlay">
-      <div>
-        <h2 id="overlayTitle">READY?</h2>
-        <p id="overlayText">Bungkaga ang mga blocks! Ayaw tugoti nga mahulog ang bola.</p>
-        <button class="primary" id="startBtn">▶ START GAME</button>
-      </div>
+  <section class="games">
+    <article class="game">
+      <div class="emoji">🧱</div>
+      <h2>Brick Breaker</h2>
+      <p>Break the bricks and score points!</p>
+      <button onclick="openGame()">PLAY NOW</button>
+    </article>
+    <article class="game">
+      <div class="emoji">🐍</div>
+      <h2>Snake Game</h2>
+      <p>Can you beat your high score?</p>
+      <p class="soon">COMING SOON</p>
+    </article>
+    <article class="game">
+      <div class="emoji">🏎️</div>
+      <h2>Racing Game</h2>
+      <p>Avoid obstacles and race!</p>
+      <p class="soon">COMING SOON</p>
+    </article>
+    <article class="game">
+      <div class="emoji">🧩</div>
+      <h2>Puzzle Game</h2>
+      <p>Challenge your brain!</p>
+      <p class="soon">COMING SOON</p>
+    </article>
+  </section>
+
+  <section id="play">
+    <h2>🧱 BRICK BREAKER</h2>
+    <p>Move the paddle to keep the ball in play.</p>
+    <p>Score: <span id="score">0</span> | Lives: <span id="lives">3</span></p>
+    <canvas id="board" width="500" height="350"></canvas>
+    <div class="controls">
+      <button onclick="move(-1)">⬅ LEFT</button>
+      <button onclick="startGame()">▶ START / RESTART</button>
+      <button onclick="move(1)">RIGHT ➡</button>
     </div>
-  </div>
-
-  <div class="controls">
-    <button id="leftBtn" aria-label="Move left">◀</button>
-    <button class="pause" id="pauseBtn">⏯ PAUSE / RESUME</button>
-    <button id="rightBtn" aria-label="Move right">▶</button>
-  </div>
-
-  <div class="help">
-    <b>🕹️ UNSAON PAGDUWA</b><br>
-    • Pislita ang START GAME aron magsugod.<br>
-    • I-drag ang tudlo sa game area aron lihokon ang paddle.<br>
-    • Gamit ang ◀ ug ▶ buttons aron lihokon ang paddle.<br>
-    • Bungkaga ang tanang blocks aron modaog.<br>
-    • Adunay 3 ka lives. Pislita ang Pause aron mohunong kadiyot.
-  </div>
+    <p id="status">Press START to play.</p>
+    <button onclick="closeGame()">BACK TO GAMES</button>
+  </section>
 </main>
 
-<footer>PINoy ARCADE © 2026<br>Free game • No real money • Just for fun</footer>
+<footer>© 2026 PINOY MART ARCADE • Made for fun 🇵🇭</footer>
 
 <script>
-(() => {
-  const canvas = document.getElementById("game");
-  const ctx = canvas.getContext("2d");
-  const overlay = document.getElementById("overlay");
-  const title = document.getElementById("overlayTitle");
-  const message = document.getElementById("overlayText");
-  const startBtn = document.getElementById("startBtn");
-  const scoreEl = document.getElementById("score");
-  const livesEl = document.getElementById("lives");
-  const bestEl = document.getElementById("best");
-
-  const W = 360, H = 540;
-  const colors = ["#ff4fa3","#ff9852","#ffe45e","#61ffac","#55f6ff","#a779ff"];
-  let score = 0, lives = 3, best = 0;
-  let bricks = [], running = false, started = false;
-  let left = false, right = false, lastTime = 0, frame = 0;
-
-  try { best = Number(localStorage.getItem("pinoyArcadeBest")) || 0; } catch(e) {}
-  bestEl.textContent = best;
-
-  const paddle = {x:137,y:490,w:86,h:12,speed:340};
-  const ball = {x:180,y:479,r:7,vx:155,vy:-245,stuck:true};
-
-  function createBricks(){
-    bricks = [];
-    const cols=7, rows=6, gap=5, side=12, top=58;
-    const bw=(W-side*2-gap*(cols-1))/cols, bh=20;
-    for(let r=0;r<rows;r++){
-      for(let c=0;c<cols;c++){
-        bricks.push({
-          x:side+c*(bw+gap), y:top+r*(bh+gap),
-          w:bw,h:bh,color:colors[r],alive:true
-        });
-      }
-    }
+const canvas=document.getElementById("board");
+const ctx=canvas.getContext("2d");
+let paddle,ball,bricks,score,lives,running=false,raf;
+function setup(){
+ paddle={x:210,y:325,w:80,h:10};
+ ball={x:250,y:280,dx:3,dy:-3,r:7};
+ score=0;lives=3;
+ bricks=[];
+ for(let r=0;r<4;r++)for(let c=0;c<8;c++)
+  bricks.push({x:12+c*60,y:25+r*24,w:52,h:15,on:true,color:["#ff4d6d","#ffca3a","#35d07f","#45a3ff"][r]});
+ updateInfo();
+}
+function updateInfo(){
+ document.getElementById("score").textContent=score;
+ document.getElementById("lives").textContent=lives;
+}
+function draw(){
+ ctx.clearRect(0,0,500,350);
+ bricks.forEach(b=>{if(b.on){ctx.fillStyle=b.color;ctx.fillRect(b.x,b.y,b.w,b.h)}});
+ ctx.fillStyle="#fff";ctx.fillRect(paddle.x,paddle.y,paddle.w,paddle.h);
+ ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
+ ctx.fillStyle="#ffe45e";ctx.fill();
+}
+function frame(){
+ if(!running)return;
+ ball.x+=ball.dx;ball.y+=ball.dy;
+ if(ball.x<ball.r||ball.x>500-ball.r)ball.dx*=-1;
+ if(ball.y<ball.r)ball.dy*=-1;
+ if(ball.y+ball.r>=paddle.y&&ball.x>=paddle.x&&ball.x<=paddle.x+paddle.w&&ball.dy>0){
+  ball.dy=-Math.abs(ball.dy);ball.dx+=(ball.x-(paddle.x+paddle.w/2))/18;
+ }
+ for(const b of bricks){
+  if(b.on&&ball.x>b.x&&ball.x<b.x+b.w&&ball.y-ball.r<b.y+b.h&&ball.y+ball.r>b.y){
+   b.on=false;ball.dy*=-1;score+=10;updateInfo();break;
   }
-
-  function updateStats(){
-    scoreEl.textContent=score;
-    livesEl.textContent=lives ? "❤️".repeat(lives) : "—";
-    bestEl.textContent=best;
-  }
-
-  function resetBall(){
-    paddle.x=(W-paddle.w)/2;
-    ball.x=W/2;
-    ball.y=paddle.y-ball.r-2;
-    ball.vx=(Math.random()<.5?-1:1)*155;
-    ball.vy=-245;
-    ball.stuck=true;
-  }
-
-  function showOverlay(t,m,b){
-    title.textContent=t;
-    message.textContent=m;
-    startBtn.textContent=b;
-    overlay.classList.remove("hidden");
-  }
-
-  function startGame(){
-    cancelAnimationFrame(frame);
-    score=0; lives=3; started=true; running=true;
-    left=false; right=false;
-    createBricks(); resetBall(); updateStats();
-    overlay.classList.add("hidden");
-    lastTime=performance.now();
-    frame=requestAnimationFrame(loop);
-  }
-
-  function pauseGame(){
-    if(!started){startGame();return;}
-    if(running){
-      running=false;
-      cancelAnimationFrame(frame);
-      showOverlay("PAUSED ⏸","Pahuway sa kadiyot. Pislita aron mopadayon.","▶ RESUME");
-    }else{
-      running=true;
-      overlay.classList.add("hidden");
-      lastTime=performance.now();
-      frame=requestAnimationFrame(loop);
-    }
-  }
-
-  function finish(won){
-    running=false; started=false;
-    cancelAnimationFrame(frame);
-    if(score>best){
-      best=score;
-      try{localStorage.setItem("pinoyArcadeBest",String(best));}catch(e){}
-    }
-    updateStats();
-    showOverlay(won?"YOU WIN! 🏆":"GAME OVER 💥",
-      won?"Nahurot nimo ang tanang blocks! Score: "+score:
-      "Imong score: "+score+". Sulayi pag-usab!","↻ PLAY AGAIN");
-  }
-
-  function rounded(x,y,w,h,r){
-    ctx.beginPath();ctx.roundRect(x,y,w,h,r);
-  }
-
-  function draw(){
-    ctx.fillStyle="#100c27";ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle="#ffffff0b";
-    for(let x=0;x<W;x+=30){
-      ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
-    }
-    for(let y=0;y<H;y+=30){
-      ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
-    }
-    for(let i=0;i<22;i++){
-      ctx.fillStyle="#ffffff";
-      ctx.globalAlpha=.2+(i%3)*.2;
-      ctx.fillRect((i*83+19)%W,(i*127+11)%H,2,2);
-    }
-    ctx.globalAlpha=1;
-
-    bricks.forEach(b=>{
-      if(!b.alive)return;
-      ctx.save();ctx.shadowColor=b.color;ctx.shadowBlur=8;
-      rounded(b.x,b.y,b.w,b.h,4);
-      ctx.fillStyle=b.color;ctx.fill();
-      ctx.shadowBlur=0;
-      rounded(b.x+3,b.y+3,b.w-6,3,2);
-      ctx.fillStyle="#ffffff99";ctx.fill();
-      ctx.restore();
-    });
-
-    ctx.save();ctx.shadowColor="#55f6ff";ctx.shadowBlur=13;
-    rounded(paddle.x,paddle.y,paddle.w,paddle.h,7);
-    ctx.fillStyle="#55f6ff";ctx.fill();ctx.restore();
-
-    ctx.save();ctx.shadowColor="#ffe45e";ctx.shadowBlur=16;
-    ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
-    ctx.fillStyle="#ffe45e";ctx.fill();ctx.restore();
-  }
-
-  function update(dt){
-    if(left)paddle.x-=paddle.speed*dt;
-    if(right)paddle.x+=paddle.speed*dt;
-    paddle.x=Math.max(0,Math.min(W-paddle.w,paddle.x));
-
-    if(ball.stuck){
-      ball.x=paddle.x+paddle.w/2;
-      ball.y=paddle.y-ball.r-2;
-      return;
-    }
-
-    ball.x+=ball.vx*dt;
-    ball.y+=ball.vy*dt;
-
-    if(ball.x-ball.r<0){ball.x=ball.r;ball.vx=Math.abs(ball.vx);}
-    if(ball.x+ball.r>W){ball.x=W-ball.r;ball.vx=-Math.abs(ball.vx);}
-    if(ball.y-ball.r<0){ball.y=ball.r;ball.vy=Math.abs(ball.vy);}
-
-    if(ball.vy>0 && ball.y+ball.r>=paddle.y &&
-       ball.y-ball.r<=paddle.y+paddle.h &&
-       ball.x>=paddle.x && ball.x<=paddle.x+paddle.w){
-      ball.y=paddle.y-ball.r;
-      const hit=(ball.x-(paddle.x+paddle.w/2))/(paddle.w/2);
-      ball.vx=hit*265;
-      ball.vy=-Math.max(210,Math.sqrt(245*245+155*155));
-    }
-
-    for(const b of bricks){
-      if(!b.alive)continue;
-      if(ball.x+ball.r>b.x && ball.x-ball.r<b.x+b.w &&
-         ball.y+ball.r>b.y && ball.y-ball.r<b.y+b.h){
-        b.alive=false;
-        score+=10;
-        ball.vy*=-1;
-        updateStats();
-        break;
-      }
-    }
-
-    if(bricks.every(b=>!b.alive)){finish(true);return;}
-
-    if(ball.y-ball.r>H){
-      lives--;
-      updateStats();
-      if(lives<=0){finish(false);return;}
-      resetBall();
-    }
-  }
-
-  function loop(now){
-    if(!running)return;
-    const dt=Math.min((now-lastTime)/1000,.025);
-    lastTime=now;
-    update(dt);draw();
-    if(running)frame=requestAnimationFrame(loop);
-  }
-
-  function setControl(which,on){
-    if(which==="left")left=on;
-    if(which==="right")right=on;
-  }
-
-  function bindButton(id,which){
-    const el=document.getElementById(id);
-    el.addEventListener("pointerdown",e=>{
-      e.preventDefault();setControl(which,true);
-    });
-    ["pointerup","pointercancel","pointerleave"].forEach(type=>
-      el.addEventListener(type,()=>setControl(which,false))
-    );
-  }
-  bindButton("leftBtn","left");
-  bindButton("rightBtn","right");
-
-  canvas.addEventListener("pointerdown",e=>{
-    const rect=canvas.getBoundingClientRect();
-    const x=(e.clientX-rect.left)*W/rect.width;
-    paddle.x=Math.max(0,Math.min(W-paddle.w,x-paddle.w/2));
-    if(running && ball.stuck)ball.stuck=false;
-  });
-
-  canvas.addEventListener("pointermove",e=>{
-    if(e.buttons===0 && e.pointerType!=="touch")return;
-    const rect=canvas.getBoundingClientRect();
-    const x=(e.clientX-rect.left)*W/rect.width;
-    paddle.x=Math.max(0,Math.min(W-paddle.w,x-paddle.w/2));
-  });
-
-  document.addEventListener("keydown",e=>{
-    if(["ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();
-    if(e.key==="ArrowLeft"||e.key==="a")left=true;
-    if(e.key==="ArrowRight"||e.key==="d")right=true;
-    if(e.key===" " && !e.repeat)pauseGame();
-  });
-  document.addEventListener("keyup",e=>{
-    if(e.key==="ArrowLeft"||e.key==="a")left=false;
-    if(e.key==="ArrowRight"||e.key==="d")right=false;
-  });
-  window.addEventListener("blur",()=>{left=false;right=false;});
-
-  startBtn.addEventListener("click",()=>{
-    if(started && !running)pauseGame();
-    else startGame();
-  });
-  document.getElementById("pauseBtn").addEventListener("click",pauseGame);
-
-  createBricks();draw();updateStats();
-})();
+ }
+ if(ball.y>350){
+  lives--;updateInfo();
+  if(lives<=0){end("Game over! Press START to try again.");return}
+  ball={x:250,y:280,dx:3,dy:-3,r:7};
+ }
+ if(bricks.every(b=>!b.on)){end("You win! Great job! Press START to play again.");return}
+ draw();raf=requestAnimationFrame(frame);
+}
+function startGame(){
+ cancelAnimationFrame(raf);setup();running=true;
+ document.getElementById("status").textContent="Game on! Good luck!";
+ draw();frame();
+}
+function end(msg){running=false;draw();document.getElementById("status").textContent=msg}
+function move(dir){paddle.x=Math.max(0,Math.min(500-paddle.w,paddle.x+dir*28));if(!running)draw()}
+function openGame(){
+ document.getElementById("play").style.display="block";
+ document.getElementById("play").scrollIntoView({behavior:"smooth"});
+ setup();draw();
+}
+function closeGame(){
+ running=false;cancelAnimationFrame(raf);
+ document.getElementById("play").style.display="none";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+canvas.addEventListener("pointermove",e=>{
+ const rect=canvas.getBoundingClientRect();
+ const x=(e.clientX-rect.left)*500/rect.width;
+ paddle.x=Math.max(0,Math.min(500-paddle.w,x-paddle.w/2));
+ if(!running)draw();
+});
+canvas.addEventListener("touchmove",e=>{
+ e.preventDefault();
+ const rect=canvas.getBoundingClientRect();
+ const x=(e.touches[0].clientX-rect.left)*500/rect.width;
+ paddle.x=Math.max(0,Math.min(500-paddle.w,x-paddle.w/2));
+ if(!running)draw();
+},{passive:false});
+setup();draw();
 </script>
 </body>
 </html>
