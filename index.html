@@ -4,98 +4,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pinoy Work Tools</title>
+<title>Pinoy Invest | Demo</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f2f5f9;color:#202b3c}
-header{background:#075e54;color:white;padding:28px 16px;text-align:center}
-header h1{margin:0 0 8px}
-main{max-width:700px;margin:20px auto;padding:0 14px}
-.card{background:white;padding:20px;margin-bottom:16px;border-radius:14px;box-shadow:0 3px 12px #0000000c}
-h2{margin-top:0;color:#075e54;font-size:21px}
-label{display:block;margin:12px 0 5px}
-input{width:100%;padding:12px;border:1px solid #ccd3dd;border-radius:8px;font-size:16px}
-button{margin-top:14px;background:#075e54;color:white;border:0;border-radius:8px;padding:12px 16px;font-size:16px;width:100%;cursor:pointer}
-.result{margin-top:14px;padding:12px;background:#e6f4ef;border-radius:8px;font-weight:bold;overflow-wrap:anywhere}
-footer{text-align:center;padding:22px;color:#596579;font-size:13px}
+body{margin:0;background:#071711;color:#f5f7f5;font-family:Arial,sans-serif}
+header{background:#0e2b1e;padding:22px 16px;text-align:center;border-bottom:1px solid #b99543}
+.logo{color:#f2ce72;font-size:25px;font-weight:bold}
+header p{color:#c3d1c8;font-size:12px}
+main{max-width:850px;margin:auto;padding:18px}
+.notice{background:#332a13;color:#ffe3a0;padding:12px;border:1px solid #8b6e2b;border-radius:10px;font-size:12px;line-height:1.6}
+h2{font-size:19px;margin-top:25px}
+.balance{background:linear-gradient(135deg,#164b32,#0d2c20);padding:22px;border-radius:16px;border:1px solid #38684c}
+.balance small{color:#d3e4d8}
+.amount{font-size:32px;font-weight:bold;color:#f2ce72;margin:12px 0}
+button{background:#d7b65f;color:#102116;border:0;border-radius:8px;padding:12px 14px;font-weight:bold;cursor:pointer}
+button.secondary{background:#203c2d;color:white;border:1px solid #53705d}
+button:disabled{opacity:.45}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.card{background:#10271c;padding:17px;border:1px solid #294a36;border-radius:13px}
+.card h3{color:#f2ce72;margin-top:0}
+.price{font-size:24px;font-weight:bold;margin:10px 0}
+.card p{font-size:13px;color:#c5d2c9;line-height:1.6}
+input{width:100%;padding:12px;border-radius:8px;background:#091a12;color:white;border:1px solid #42634d;margin:8px 0 12px}
+label{font-size:13px;color:#d0ddd4}
+.panel{background:#10271c;border:1px solid #294a36;border-radius:13px;padding:17px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{text-align:left;padding:10px 5px;border-bottom:1px solid #294a36;overflow-wrap:anywhere}
+th{color:#f2ce72}
+.muted{color:#a8b9ad;font-size:12px;line-height:1.6}
+footer{text-align:center;padding:24px;color:#9eb0a3;font-size:12px}
+#message{font-size:13px;color:#f2ce72;margin-top:10px}
 </style>
 </head>
 <body>
 <header>
-<h1>Pinoy Work Tools 🇵🇭</h1>
-<p>Simple calculators for Filipino workers</p>
+  <div class="logo">₱ PINOY INVEST</div>
+  <p>LEARN • PLAN • GROW</p>
 </header>
+
 <main>
-<section class="card">
-<h2>💰 Salary Calculator</h2>
-<label>Daily rate (₱)</label>
-<input id="daily" type="number" min="0" placeholder="Example: 540">
-<label>Days worked</label>
-<input id="days" type="number" min="0" placeholder="Example: 13">
-<label>Overtime hours</label>
-<input id="ot" type="number" min="0" value="0">
-<label>Overtime rate per hour (₱)</label>
-<input id="otr" type="number" min="0" placeholder="Example: 84">
-<button onclick="salary()">Calculate Salary</button>
-<div class="result" id="salaryResult">Your estimate will appear here.</div>
-</section>
-<section class="card">
-<h2>📅 13th-Month Pay Estimator</h2>
-<label>Total basic salary earned this year (₱)</label>
-<input id="basic" type="number" min="0" placeholder="Example: 65000">
-<button onclick="thirteen()">Estimate 13th-Month Pay</button>
-<div class="result" id="thirteenResult">Your estimate will appear here.</div>
-</section>
-<section class="card">
-<h2>🎯 Savings Goal Calculator</h2>
-<label>Savings goal (₱)</label>
-<input id="goal" type="number" min="0" placeholder="Example: 100000">
-<label>Amount saved already (₱)</label>
-<input id="saved" type="number" min="0" value="0">
-<label>Amount to save every payday (₱)</label>
-<input id="perpay" type="number" min="1" placeholder="Example: 5000">
-<button onclick="savings()">Calculate Savings Plan</button>
-<div class="result" id="savingsResult">Your plan will appear here.</div>
-</section>
-<section class="card">
-<h2>⏱️ Work Hours Calculator</h2>
-<label>Clock-in time</label>
-<input id="start" type="time">
-<label>Clock-out time</label>
-<input id="end" type="time">
-<label>Total break time in minutes</label>
-<input id="breaks" type="number" min="0" value="60">
-<button onclick="hours()">Calculate Work Hours</button>
-<div class="result" id="hoursResult">Your work hours will appear here.</div>
-</section>
+  <div class="notice">
+    <strong>DEMO WEBSITE ONLY</strong><br>
+    This is a practice simulation. All balances and transactions are virtual.
+    No real deposits, withdrawals, or investment returns are processed.
+    Displayed plans are examples, not real financial offers.
+  </div>
+
+  <h2>My Dashboard</h2>
+  <section class="balance">
+    <small>Virtual Demo Balance</small>
+    <div class="amount" id="balance">₱10,000.00</div>
+    <small>Demo account • No real money</small>
+    <div class="actions">
+      <button onclick="showForm('deposit')">＋ Add Demo Funds</button>
+      <button class="secondary" onclick="showForm('withdraw')">Withdraw Demo Funds</button>
+    </div>
+  </section>
+
+  <section id="fundForm" class="panel" style="display:none;margin-top:14px">
+    <h2 id="formTitle" style="margin-top:0">Demo Transaction</h2>
+    <label for="fundAmount">Amount (₱)</label>
+    <input id="fundAmount" type="number" min="1" step="1" placeholder="Enter amount">
+    <div class="actions">
+      <button onclick="submitFunds()">Confirm Demo Transaction</button>
+      <button class="secondary" onclick="hideForm()">Cancel</button>
+    </div>
+    <div id="message"></div>
+  </section>
+
+  <h2>Example Plans</h2>
+  <p class="muted">Practice selecting a plan. The amount is deducted from your virtual balance only. No real investment or profit is created.</p>
+  <div class="grid">
+    <article class="card">
+      <h3>Basic</h3>
+      <div class="price">₱1,000</div>
+      <p>Example entry-level plan<br>For learning the demo interface.</p>
+      <button onclick="choosePlan('Basic',1000)">Try Basic</button>
+    </article>
+    <article class="card">
+      <h3>Growth</h3>
+      <div class="price">₱3,000</div>
+      <p>Example middle-tier plan<br>For practicing plan selection.</p>
+      <button onclick="choosePlan('Growth',3000)">Try Growth</button>
+    </article>
+    <article class="card">
+      <h3>Premium</h3>
+      <div class="price">₱5,000</div>
+      <p>Example higher-tier plan<br>For exploring the demo layout.</p>
+      <button onclick="choosePlan('Premium',5000)">Try Premium</button>
+    </article>
+  </div>
+
+  <h2>Account Summary</h2>
+  <section class="panel">
+    <p>Account: <strong>Demo Member</strong></p>
+    <p>Status: <strong style="color:#f2ce72">Prototype</strong></p>
+    <p class="muted">This website does not create secure member accounts. Your demo balance is stored only in this page and may reset when you reload it.</p>
+  </section>
+
+  <h2>Transaction History</h2>
+  <section class="panel">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Details</th><th>Amount</th></tr>
+      </thead>
+      <tbody id="history">
+        <tr><td>Demo</td><td>Starting virtual balance</td><td>₱10,000.00</td></tr>
+      </tbody>
+    </table>
+    <p id="emptyNote" class="muted">Transactions shown here are local demo records only.</p>
+  </section>
 </main>
+
 <footer>
-<p>Pinoy Work Tools · Made for Filipino workers</p>
-<p>Estimates only. Actual pay depends on your employer's payroll rules and applicable labor laws.</p>
+  PINOY INVEST DEMO © 2026<br>
+  Not a bank, broker, or authorized investment service.
 </footer>
+
 <script>
-const peso=n=>"₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
-function val(id){return Math.max(0,Number(document.getElementById(id).value)||0)}
-function salary(){
-const total=val("daily")*val("days")+val("ot")*val("otr");
-document.getElementById("salaryResult").textContent="Estimated gross pay: "+peso(total)+" (before deductions).";
+let balance = 10000;
+let transactionType = "";
+const peso = n => "₱" + n.toLocaleString("en-PH", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+function updateBalance(){
+  document.getElementById("balance").textContent = peso(balance);
 }
-function thirteen(){
-document.getElementById("thirteenResult").textContent="Estimated 13th-month pay: "+peso(val("basic")/12)+". Eligibility and computation may vary.";
+
+function showForm(type){
+  transactionType = type;
+  document.getElementById("fundForm").style.display = "block";
+  document.getElementById("formTitle").textContent =
+    type === "deposit" ? "Add Virtual Demo Funds" : "Withdraw Virtual Demo Funds";
+  document.getElementById("fundAmount").value = "";
+  document.getElementById("message").textContent = "";
+  document.getElementById("fundForm").scrollIntoView({behavior:"smooth"});
 }
-function savings(){
-const goal=val("goal"),saved=val("saved"),pay=val("perpay");
-if(!pay){document.getElementById("savingsResult").textContent="Enter an amount to save per payday.";return}
-const remaining=Math.max(0,goal-saved);
-document.getElementById("savingsResult").textContent=remaining===0?"Congratulations! You reached your goal!":"Remaining: "+peso(remaining)+". About "+Math.ceil(remaining/pay)+" paydays to reach your goal.";
+
+function hideForm(){
+  document.getElementById("fundForm").style.display = "none";
 }
-function hours(){
-const s=document.getElementById("start").value,e=document.getElementById("end").value;
-if(!s||!e){document.getElementById("hoursResult").textContent="Enter both times first.";return}
-const [sh,sm]=s.split(":").map(Number),[eh,em]=e.split(":").map(Number);
-let mins=eh*60+em-(sh*60+sm);if(mins<0)mins+=1440;
-mins=Math.max(0,mins-val("breaks"));
-document.getElementById("hoursResult").textContent="Estimated paid work time: "+Math.floor(mins/60)+" hours and "+(mins%60)+" minutes.";
+
+function addHistory(type, details, amount){
+  const row = document.createElement("tr");
+  [type, details, peso(amount)].forEach(value => {
+    const cell = document.createElement("td");
+    cell.textContent = value;
+    row.appendChild(cell);
+  });
+  document.getElementById("history").prepend(row);
+}
+
+function submitFunds(){
+  const amount = Number(document.getElementById("fundAmount").value);
+  const message = document.getElementById("message");
+
+  if(!Number.isFinite(amount) || amount <= 0){
+    message.textContent = "Please enter a valid amount.";
+    return;
+  }
+  if(transactionType === "withdraw" && amount > balance){
+    message.textContent = "Insufficient virtual demo balance.";
+    return;
+  }
+
+  if(transactionType === "deposit"){
+    balance += amount;
+    addHistory("Demo", "Virtual funds added", amount);
+  }else{
+    balance -= amount;
+    addHistory("Demo", "Virtual funds withdrawn", amount);
+  }
+
+  updateBalance();
+  message.textContent = "Demo transaction completed. No real money moved.";
+  document.getElementById("fundAmount").value = "";
+}
+
+function choosePlan(name, cost){
+  if(balance < cost){
+    alert("Not enough virtual demo balance. Try a smaller plan.");
+    return;
+  }
+  if(!confirm("Try the " + name + " plan for " + peso(cost) +
+      " in DEMO mode only? No real money will be invested.")){
+    return;
+  }
+
+  balance -= cost;
+  updateBalance();
+  addHistory("Demo", name + " plan selected", -cost);
+  alert(name + " demo plan selected. This is not a real investment and generates no actual earnings.");
 }
 </script>
 </body>
