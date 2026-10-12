@@ -3,162 +3,216 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PINoy MART ARCADE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PINOY MART ARCADE</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#101329;color:white}
-header{padding:22px 16px;text-align:center;background:linear-gradient(120deg,#ff3155,#713cff,#147dff)}
-.logo{font-size:30px;font-weight:900;letter-spacing:1px}
-header p{margin:8px 0 0}
-main{max-width:900px;margin:auto;padding:18px}
-.welcome{text-align:center;padding:18px 0}
-h1{font-size:27px;margin-bottom:8px}
-.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
-.game{background:#202542;border:1px solid #373d65;border-radius:18px;padding:18px 12px;text-align:center}
-.emoji{font-size:48px}
-.game h2{font-size:18px}
-button{border:0;border-radius:12px;padding:12px 16px;background:#ffcf40;color:#17172a;font-weight:bold;cursor:pointer}
-.game button{width:100%}
-.soon{color:#b9bfdc;font-size:12px}
-#play{display:none;text-align:center;background:#202542;border-radius:18px;padding:15px;margin-top:20px}
-#board{display:block;width:100%;max-width:500px;margin:12px auto;background:#090d20;border-radius:12px;touch-action:none}
-.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-footer{text-align:center;padding:25px;color:#aeb4d6;font-size:13px}
+body{margin:0;background:#101329;color:white;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#ff3155,#713cff,#147dff);padding:22px 10px;text-align:center}
+.logo{font-size:30px;font-weight:900}
+main{max-width:850px;margin:auto;padding:15px}
+.welcome{text-align:center}
+.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card,#play{background:#202542;border:1px solid #373d65;border-radius:16px;padding:14px;text-align:center}
+.emoji{font-size:40px}
+h2{font-size:19px}
+button{background:#ffcf40;color:#17172a;border:0;border-radius:10px;padding:11px;font-weight:bold;cursor:pointer;margin:3px}
+.card button{width:100%}
+#play{display:none;margin-top:18px}
+canvas{display:block;width:100%;max-width:400px;margin:12px auto;background:#090d20;border-radius:10px;touch-action:none}
+#tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:330px;margin:15px auto}
+.tile{height:85px;font-size:26px;padding:0}
+footer{text-align:center;padding:25px;color:#aaa}
+@media(max-width:360px){.logo{font-size:25px}.tile{height:68px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">🇵🇭 PINOY MART</div>
-  <p>ARCADE • PLAY • HAVE FUN!</p>
+ <div class="logo">🇵🇭 PINOY MART</div>
+ <p>ARCADE • PLAY • HAVE FUN!</p>
 </header>
-
 <main>
-  <section class="welcome">
-    <h1>🎮 Welcome to Pinoy Mart Arcade!</h1>
-    <p>Choose your game and have fun. Libre ra ang pagduwa!</p>
-  </section>
-
-  <section class="games">
-    <article class="game">
-      <div class="emoji">🧱</div>
-      <h2>Brick Breaker</h2>
-      <p>Break the bricks and score points!</p>
-      <button onclick="openGame()">PLAY NOW</button>
-    </article>
-    <article class="game">
-      <div class="emoji">🐍</div>
-      <h2>Snake Game</h2>
-      <p>Can you beat your high score?</p>
-      <p class="soon">COMING SOON</p>
-    </article>
-    <article class="game">
-      <div class="emoji">🏎️</div>
-      <h2>Racing Game</h2>
-      <p>Avoid obstacles and race!</p>
-      <p class="soon">COMING SOON</p>
-    </article>
-    <article class="game">
-      <div class="emoji">🧩</div>
-      <h2>Puzzle Game</h2>
-      <p>Challenge your brain!</p>
-      <p class="soon">COMING SOON</p>
-    </article>
-  </section>
-
-  <section id="play">
-    <h2>🧱 BRICK BREAKER</h2>
-    <p>Move the paddle to keep the ball in play.</p>
-    <p>Score: <span id="score">0</span> | Lives: <span id="lives">3</span></p>
-    <canvas id="board" width="500" height="350"></canvas>
-    <div class="controls">
-      <button onclick="move(-1)">⬅ LEFT</button>
-      <button onclick="startGame()">▶ START / RESTART</button>
-      <button onclick="move(1)">RIGHT ➡</button>
-    </div>
-    <p id="status">Press START to play.</p>
-    <button onclick="closeGame()">BACK TO GAMES</button>
-  </section>
+ <section class="welcome">
+  <h1>🎮 Choose Your Game!</h1>
+  <p>Libre ra ang pagduwa, migo!</p>
+ </section>
+ <section class="games">
+  <div class="card"><div class="emoji">🧱</div><h2>Brick Breaker</h2><button onclick="openGame('brick')">PLAY NOW</button></div>
+  <div class="card"><div class="emoji">🐍</div><h2>Snake Game</h2><button onclick="openGame('snake')">PLAY NOW</button></div>
+  <div class="card"><div class="emoji">🏎️</div><h2>Racing Game</h2><button onclick="openGame('race')">PLAY NOW</button></div>
+  <div class="card"><div class="emoji">🧩</div><h2>Puzzle Game</h2><button onclick="openGame('puzzle')">PLAY NOW</button></div>
+ </section>
+ <section id="play">
+  <h2 id="gameTitle">GAME</h2>
+  <p id="info">Press START to play.</p>
+  <canvas id="board" width="400" height="400"></canvas>
+  <div id="controls"></div>
+  <div id="tiles" style="display:none"></div>
+  <button onclick="startGame()">▶ START / RESTART</button>
+  <button onclick="closeGame()">BACK TO GAMES</button>
+ </section>
 </main>
-
-<footer>© 2026 PINOY MART ARCADE • Made for fun 🇵🇭</footer>
-
+<footer>© 2026 PINOY MART ARCADE 🇵🇭</footer>
 <script>
-const canvas=document.getElementById("board");
-const ctx=canvas.getContext("2d");
-let paddle,ball,bricks,score,lives,running=false,raf;
-function setup(){
- paddle={x:210,y:325,w:80,h:10};
- ball={x:250,y:280,dx:3,dy:-3,r:7};
- score=0;lives=3;
- bricks=[];
- for(let r=0;r<4;r++)for(let c=0;c<8;c++)
-  bricks.push({x:12+c*60,y:25+r*24,w:52,h:15,on:true,color:["#ff4d6d","#ffca3a","#35d07f","#45a3ff"][r]});
- updateInfo();
+const cv=document.getElementById('board'),ctx=cv.getContext('2d');
+const play=document.getElementById('play'),info=document.getElementById('info');
+const controls=document.getElementById('controls'),tiles=document.getElementById('tiles');
+let game='',timer=null,active=false,score=0;
+function stop(){active=false;clearInterval(timer);timer=null}
+function openGame(g){
+ stop();game=g;play.style.display='block';cv.style.display='block';
+ tiles.style.display='none';controls.innerHTML='';
+ document.getElementById('gameTitle').textContent=
+ ({brick:'🧱 BRICK BREAKER',snake:'🐍 SNAKE GAME',race:'🏎️ RACING GAME',puzzle:'🧩 PUZZLE GAME'})[g];
+ play.scrollIntoView({behavior:'smooth'});startGame();
 }
-function updateInfo(){
- document.getElementById("score").textContent=score;
- document.getElementById("lives").textContent=lives;
-}
-function draw(){
- ctx.clearRect(0,0,500,350);
- bricks.forEach(b=>{if(b.on){ctx.fillStyle=b.color;ctx.fillRect(b.x,b.y,b.w,b.h)}});
- ctx.fillStyle="#fff";ctx.fillRect(paddle.x,paddle.y,paddle.w,paddle.h);
- ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);
- ctx.fillStyle="#ffe45e";ctx.fill();
-}
-function frame(){
- if(!running)return;
- ball.x+=ball.dx;ball.y+=ball.dy;
- if(ball.x<ball.r||ball.x>500-ball.r)ball.dx*=-1;
- if(ball.y<ball.r)ball.dy*=-1;
- if(ball.y+ball.r>=paddle.y&&ball.x>=paddle.x&&ball.x<=paddle.x+paddle.w&&ball.dy>0){
-  ball.dy=-Math.abs(ball.dy);ball.dx+=(ball.x-(paddle.x+paddle.w/2))/18;
- }
- for(const b of bricks){
-  if(b.on&&ball.x>b.x&&ball.x<b.x+b.w&&ball.y-ball.r<b.y+b.h&&ball.y+ball.r>b.y){
-   b.on=false;ball.dy*=-1;score+=10;updateInfo();break;
-  }
- }
- if(ball.y>350){
-  lives--;updateInfo();
-  if(lives<=0){end("Game over! Press START to try again.");return}
-  ball={x:250,y:280,dx:3,dy:-3,r:7};
- }
- if(bricks.every(b=>!b.on)){end("You win! Great job! Press START to play again.");return}
- draw();raf=requestAnimationFrame(frame);
-}
+function closeGame(){stop();play.style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
+function say(s){info.textContent=s}
 function startGame(){
- cancelAnimationFrame(raf);setup();running=true;
- document.getElementById("status").textContent="Game on! Good luck!";
- draw();frame();
+ stop();score=0;
+ if(game==='snake')startSnake();
+ if(game==='race')startRace();
+ if(game==='puzzle')startPuzzle();
+ if(game==='brick')startBrick();
 }
-function end(msg){running=false;draw();document.getElementById("status").textContent=msg}
-function move(dir){paddle.x=Math.max(0,Math.min(500-paddle.w,paddle.x+dir*28));if(!running)draw()}
-function openGame(){
- document.getElementById("play").style.display="block";
- document.getElementById("play").scrollIntoView({behavior:"smooth"});
- setup();draw();
+function btns(items){
+ controls.innerHTML=items.map(a=>`<button onclick="${a[1]}">${a[0]}</button>`).join('');
 }
-function closeGame(){
- running=false;cancelAnimationFrame(raf);
- document.getElementById("play").style.display="none";
- window.scrollTo({top:0,behavior:"smooth"});
+
+/* SNAKE */
+let snake,food,dir,nextDir;
+function startSnake(){
+ cv.width=400;cv.height=400;snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];
+ dir={x:1,y:0};nextDir=dir;food={x:15,y:12};say('Score: 0');
+ btns([['⬆️','turn(0,-1)'],['⬅️','turn(-1,0)'],['⬇️','turn(0,1)'],['➡️','turn(1,0)']]);
+ function draw(){
+  ctx.fillStyle='#090d20';ctx.fillRect(0,0,400,400);
+  ctx.fillStyle='#ffcf40';ctx.fillRect(food.x*20,food.y*20,18,18);
+  snake.forEach((p,i)=>{ctx.fillStyle=i?'#35d07f':'#a5ff65';ctx.fillRect(p.x*20,p.y*20,18,18)});
+ }
+ active=true;draw();
+ timer=setInterval(()=>{
+  dir=nextDir;
+  let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+  if(h.x<0||h.x>=20||h.y<0||h.y>=20||snake.some(p=>p.x===h.x&&p.y===h.y)){
+   stop();say('Game over! Score: '+score+' — press restart.');return;
+  }
+  snake.unshift(h);
+  if(h.x===food.x&&h.y===food.y){
+   score+=10;food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)};
+   say('Score: '+score);
+  }else snake.pop();
+  draw();
+ },140);
 }
-canvas.addEventListener("pointermove",e=>{
- const rect=canvas.getBoundingClientRect();
- const x=(e.clientX-rect.left)*500/rect.width;
- paddle.x=Math.max(0,Math.min(500-paddle.w,x-paddle.w/2));
- if(!running)draw();
+function turn(x,y){if(x!==-dir.x||y!==-dir.y)nextDir={x,y}}
+/* RACING */
+let car,obstacles,laneTick;
+function startRace(){
+ cv.width=400;cv.height=400;car=1;obstacles=[];laneTick=0;
+ btns([['⬅️ LEFT','carMove(-1)'],['RIGHT ➡️','carMove(1)']]);
+ say('Score: 0 — avoid the cars!');
+ active=true;
+ timer=setInterval(()=>{
+  laneTick++;
+  if(laneTick%8===0)obstacles.push({lane:Math.floor(Math.random()*3),y:-65});
+  obstacles.forEach(o=>o.y+=5);
+  obstacles=obstacles.filter(o=>o.y<420);
+  if(obstacles.some(o=>o.lane===car&&o.y>310&&o.y<380)){
+   stop();say('Crash! Score: '+score+' — press restart.');drawRace();return;
+  }
+  score++;
+  say('Score: '+score);
+  drawRace();
+ },40);
+ drawRace();
+}
+function carMove(n){car=Math.max(0,Math.min(2,car+n));drawRace()}
+function drawRace(){
+ ctx.fillStyle='#282b36';ctx.fillRect(0,0,400,400);
+ ctx.fillStyle='#35d07f';ctx.fillRect(0,0,38,400);ctx.fillRect(362,0,38,400);
+ ctx.strokeStyle='white';ctx.setLineDash([22,18]);ctx.lineWidth=3;
+ for(let i=1;i<3;i++){ctx.beginPath();ctx.moveTo(i*100+0,0);ctx.lineTo(i*100,400);ctx.stroke()}
+ ctx.setLineDash([]);
+ obstacles.forEach(o=>{ctx.fillStyle='#ff3155';ctx.fillRect(45+o.lane*105,o.y,50,55);ctx.fillStyle='white';ctx.fillRect(53+o.lane*105,o.y+8,12,9);ctx.fillRect(75+o.lane*105,o.y+8,12,9)});
+ ctx.fillStyle='#45a3ff';ctx.fillRect(45+car*105,320,50,60);
+ ctx.fillStyle='white';ctx.fillRect(53+car*105,328,12,10);ctx.fillRect(75+car*105,328,12,10);
+}
+/* PUZZLE */
+let puzzle,moves;
+function startPuzzle(){
+ stop();cv.style.display='none';tiles.style.display='grid';moves=0;
+ puzzle=[1,2,3,4,5,6,7,8,0];
+ for(let i=0;i<80;i++){
+  let z=puzzle.indexOf(0),opts=[z-3,z+3];
+  if(z%3)opts.push(z-1);if(z%3!==2)opts.push(z+1);
+  let n=opts[Math.floor(Math.random()*opts.length)];
+  [puzzle[z],puzzle[n]]=[puzzle[n],puzzle[z]];
+ }
+ drawPuzzle();say('Moves: 0 — arrange 1 to 8 in order.');
+}
+function drawPuzzle(){
+ tiles.innerHTML='';
+ puzzle.forEach((v,i)=>{
+  const b=document.createElement('button');b.className='tile';
+  b.textContent=v||'';
+  b.style.background=v?'#713cff':'#101329';
+  b.style.color='white';b.onclick=()=>slide(i);tiles.appendChild(b);
+ });
+}
+function slide(i){
+ const z=puzzle.indexOf(0);
+ if(![z-3,z+3,...(z%3?[z-1]:[]),...(z%3!==2?[z+1]:[])].includes(i))return;
+ [puzzle[z],puzzle[i]]=[puzzle[i],puzzle[z]];moves++;drawPuzzle();
+ if(puzzle.join(',')==='1,2,3,4,5,6,7,8,0')say('🎉 You win in '+moves+' moves!');
+ else say('Moves: '+moves);
+}
+/* BRICK BREAKER */
+let paddle,ball,bricks;
+function startBrick(){
+ cv.style.display='block';cv.width=400;cv.height=400;
+ paddle={x:160,y:370,w:80};ball={x:200,y:330,dx:3,dy:-3};
+ bricks=[];
+ for(let r=0;r<4;r++)for(let c=0;c<7;c++)bricks.push({x:8+c*56,y:30+r*23,on:true,color:['#ff3155','#ffcf40','#35d07f','#45a3ff'][r]});
+ score=0;active=true;drawBrick();say('Score: 0');
+ timer=setInterval(()=>{
+  if(!active)return;
+  ball.x+=ball.dx;ball.y+=ball.dy;
+  if(ball.x<7||ball.x>393)ball.dx*=-1;
+  if(ball.y<7)ball.dy*=-1;
+  if(ball.y+7>paddle.y&&ball.x>paddle.x&&ball.x<paddle.x+paddle.w&&ball.dy>0)ball.dy=-Math.abs(ball.dy);
+  for(const b of bricks)if(b.on&&ball.x>b.x&&ball.x<b.x+48&&ball.y>b.y&&ball.y<b.y+15){b.on=false;ball.dy*=-1;score+=10;break}
+  if(ball.y>400){stop();say('Game over! Score: '+score);drawBrick();return}
+  if(bricks.every(b=>!b.on)){stop();say('You win! Score: '+score);drawBrick();return}
+  say('Score: '+score);drawBrick();
+ },20);
+}
+function drawBrick(){
+ ctx.fillStyle='#090d20';ctx.fillRect(0,0,400,400);
+ bricks.forEach(b=>{if(b.on){ctx.fillStyle=b.color;ctx.fillRect(b.x,b.y,48,15)}});
+ ctx.fillStyle='white';ctx.fillRect(paddle.x,paddle.y,paddle.w,10);
+ ctx.beginPath();ctx.arc(ball.x,ball.y,7,0,Math.PI*2);ctx.fillStyle='#ffe45e';ctx.fill();
+}
+cv.addEventListener('pointermove',e=>{
+ if(game!=='brick'||!paddle)return;
+ const r=cv.getBoundingClientRect();
+ paddle.x=Math.max(0,Math.min(400-paddle.w,(e.clientX-r.left)*400/r.width-paddle.w/2));
+ if(!active)drawBrick();
 });
-canvas.addEventListener("touchmove",e=>{
- e.preventDefault();
- const rect=canvas.getBoundingClientRect();
- const x=(e.touches[0].clientX-rect.left)*500/rect.width;
- paddle.x=Math.max(0,Math.min(500-paddle.w,x-paddle.w/2));
- if(!running)draw();
-},{passive:false});
-setup();draw();
+cv.addEventListener('touchstart',e=>{
+ if(game!=='snake')return;
+ const r=cv.getBoundingClientRect(),t=e.touches[0];
+ const x=t.clientX-r.left,y=t.clientY-r.top;
+ if(Math.abs(x-r.width/2)>Math.abs(y-r.height/2))turn(x<r.width/2?-1:1,0);
+ else turn(0,y<r.height/2?-1:1);
+},{passive:true});
+document.addEventListener('keydown',e=>{
+ if(game==='snake'){
+  if(e.key==='ArrowUp')turn(0,-1);if(e.key==='ArrowDown')turn(0,1);
+  if(e.key==='ArrowLeft')turn(-1,0);if(e.key==='ArrowRight')turn(1,0);
+ }
+ if(game==='race'){if(e.key==='ArrowLeft')carMove(-1);if(e.key==='ArrowRight')carMove(1)}
+});
 </script>
 </body>
 </html>
